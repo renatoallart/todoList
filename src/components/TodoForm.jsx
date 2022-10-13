@@ -1,42 +1,39 @@
 import { useRef } from 'react'
 import { useTodoContext } from '../context/Todo'
-import { Popover } from '@headlessui/react'
+
 
 
 export function TodoForm() {
 
-
-    const { addTodo, isEdit, updateTodo, editTodo } = useTodoContext()
+    const { addTodo, isEdit, updateTodo, editTodo, setIsEdit } = useTodoContext()
 
 
     const todoBody = useRef()
 
     function handleAddSubmit(event) {
         event.preventDefault()
-        addTodo(todoBody.current.value)
+        const { value } = todoBody.current
+
+        if (isEdit) return updateTodo(value), todoBody.current.value = ''
+        addTodo(value)
         todoBody.current.value = ''
     }
 
-    function handleEditSubmit(event) {
-        event.preventDefault()
-        updateTodo(todoBody.current.value)
-        todoBody.current.value = ''
-    }
 
     return (
         <div>
-            {isEdit
-                ?
-                <form onSubmit={handleEditSubmit} >
-                    <input type="text" placeholder={editTodo.body} ref={todoBody} />
-                    <button>Submit</button>
-                </form>
-                :
-                <form onSubmit={handleAddSubmit} >
-                    <input type="text" placeholder='Add Todo' ref={todoBody} />
-                    <button>Submit</button>
-                </form>}
+            <h2>{ isEdit ? 'Update Todo': 'Add Todo'}</h2>
+            <form onSubmit={handleAddSubmit} >
+                <input type="text" placeholder={isEdit ? `Update:${editTodo.body}` : 'Add todo'} ref={todoBody} />
+                <button>Submit</button>
+            </form>
+            {isEdit && 
+                <button onClick={()=>{
+                    todoBody.current.value = ''
+                    setIsEdit(false)
 
+                }}>Cancel Update</button>
+            }
         </div>
     )
 }

@@ -5,6 +5,8 @@ export function TodoList() {
     const { todoList, deleteTodo, setEditTodo, setIsEdit } = useTodoContext()
 
     return (    
+      <section>
+        <h1>Todo List</h1>
       <ul>
         {todoList.map(todo => <li key={todo.id}>
           {todo.body}
@@ -15,6 +17,7 @@ export function TodoList() {
           }}>Update</button>
         </li>)}
       </ul>
+      </section>
     )
   }
   

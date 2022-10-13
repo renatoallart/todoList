@@ -17,12 +17,13 @@ export function Todo({ children }) {
     const [isEdit, setIsEdit] = useState(false)
 
     function addTodo(todo) {
+        if(todo.length === 0) return
         setTodoList([...todoList, {
             id: nanoid(),
             body: todo
         }])
     }
-
+    
     function deleteTodo(todoId) {
         setTodoList(prevList => prevList.filter(todo =>
             todo.id !== todoId))

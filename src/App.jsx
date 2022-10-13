@@ -1,15 +1,15 @@
 import { TodoList } from './components/TodoList'
 import { TodoForm } from './components/TodoForm'
-import { Todo } from './context/Todo'
-
+import { useTodoContext } from './context/Todo'
 
 export function App() {
+
+  const {todoList} = useTodoContext()
+  
   return (
     <main>
-      <Todo>
         <TodoForm />
-        <TodoList />
-      </Todo>
+        {todoList.length > 0 && <TodoList/>}
     </main>
   )
 }
