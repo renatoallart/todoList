@@ -7,7 +7,7 @@ export function App() {
   const {todoList} = useTodoContext()
   
   return (
-    <main>
+    <main className=' flex flex-col text-center place-content-center  m-4 p-4  gap-12 h-full'>
         <TodoForm />
         {todoList.length > 0 && <TodoList/>}
     </main>

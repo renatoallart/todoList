@@ -1,20 +1,25 @@
 import { useTodoContext } from "../context/Todo"
+import {PencilSimpleLine, Trash} from 'phosphor-react'
 
 
 export function TodoList() {
     const { todoList, deleteTodo, setEditTodo, setIsEdit } = useTodoContext()
 
+    function handleColorChange(){
+      return {color:'white'}
+    }
+
     return (    
-      <section>
-        <h1>Todo List</h1>
-      <ul>
-        {todoList.map(todo => <li key={todo.id}>
+      <section >
+        <h2 className="font-bold text-3xl">Todo List</h2>
+      <ul className=" flex flex-col gap-4 m-2 p-2">
+        {todoList.map(todo => <li className=" w-full text-xl" key={todo.id}>
           {todo.body}
-          <button onClick={() => deleteTodo(todo.id)}>Remove</button>
+          <button className="p-2" onClick={() => deleteTodo(todo.id)}><Trash size={16} /></button>
           <button onClick={() => {
             setEditTodo({ id: todo.id, body: todo.body })
             setIsEdit(true)
-          }}>Update</button>
+          }}><PencilSimpleLine  size={16} /></button>
         </li>)}
       </ul>
       </section>
